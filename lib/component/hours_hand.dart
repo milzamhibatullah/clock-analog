@@ -23,7 +23,8 @@ class HourHand extends StatelessWidget{
               ),
               child: GestureDetector(
                 onPanEnd: (details){
-                  Future.delayed(Duration(microseconds: 100),(){
+                  Future.delayed(const Duration(microseconds: 100),(){
+                    ///setup hours angle when clock hands is drag
                     _alarmController.setUpHoursAngle();
                   });
                 },

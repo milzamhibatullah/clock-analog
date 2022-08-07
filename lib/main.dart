@@ -8,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
+  ///initialize the timezone and setup to asia/jakarta time
   tz.initializeTimeZones();
   var id = tz.getLocation('Asia/Jakarta');
   tz.setLocalLocation(id);

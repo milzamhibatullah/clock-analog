@@ -23,6 +23,7 @@ class MinuteHand extends StatelessWidget{
               ),
               child: GestureDetector(
                 onPanUpdate: (details){
+                  ///setup minutes angle when clock hands is drag
                   _alarmController.setUpMinuteAngle(direction:details.localPosition.direction );
                 },
               ),
