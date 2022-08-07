@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stockbit_clock_test/screen/base_screen.dart';
 
 void main() async{
 
@@ -19,6 +20,9 @@ void main() async{
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: ()=>BaseScreen())
+      ],
       defaultTransition: Transition.fadeIn,
     ),
   );

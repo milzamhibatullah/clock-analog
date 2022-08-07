@@ -46,6 +46,7 @@ class NotificationService {
   /// method for notification select
   void onNotificationSelect(String? payload) {
     try {
+      print('notifcation is select');
       print(payload);
     } catch (e) {
       debugPrint('error on select notification : $e');
