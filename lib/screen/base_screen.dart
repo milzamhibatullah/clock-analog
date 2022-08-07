@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stockbit_clock_test/component/clock.dart';
 import 'package:stockbit_clock_test/controller/alarm_controller.dart';
@@ -19,6 +20,11 @@ class BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
     super.initState();
+    ///setup screen to portrait only
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   @override

@@ -9,7 +9,6 @@ import 'package:stockbit_clock_test/component/minute_hand.dart';
 import 'package:stockbit_clock_test/controller/alarm_controller.dart';
 import 'package:stockbit_clock_test/service/notification_service.dart';
 
-
 class Clock extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -33,7 +32,7 @@ class ClockState extends State<Clock> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Get.height / 4),
+      padding: const EdgeInsets.symmetric(vertical: 40.0),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -52,7 +51,7 @@ class ClockState extends State<Clock> {
 
           ///clock body
           Container(
-            height: Get.height / 4,
+            height: Get.height / 2,
             width: Get.width,
             decoration: const BoxDecoration(
                 shape: BoxShape.circle,
@@ -69,7 +68,7 @@ class ClockState extends State<Clock> {
             angle: 0.0,
             child: Image.asset(
               'images/clock_number.png',
-              height: Get.height / 4.1,
+              height: Get.height / 2,
             ),
           ),
 
@@ -87,6 +86,15 @@ class ClockState extends State<Clock> {
                 ///setup alarm
                 await _alarmController.setUpAlarm(
                     service: _notificationService);
+
+                ///display snackbar
+                Get.snackbar(
+                  'Alarm',
+                  'Success setup alarm',
+                  backgroundColor: Colors.black,
+                  colorText: Colors.white,
+                  snackPosition: SnackPosition.BOTTOM,
+                );
               },
               child: ct.text(text: 'Save Alarm'),
             ),

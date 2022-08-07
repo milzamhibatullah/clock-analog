@@ -14,22 +14,23 @@ class HourHand extends StatelessWidget{
         child: Transform.translate(
           offset: const Offset(0, 20),
           child: Center(
-            child: Container(
-              height: Get.height/16,
-              width: 4,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(32),
+            child:GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanEnd: (details){
+                Future.delayed(const Duration(microseconds: 100),(){
+                  ///setup hours angle when clock hands is drag
+                  _alarmController.setUpHoursAngle();
+                });
+              },
+              child: Container(
+                height: Get.height/4,
+                width: 10.0,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(32),
+                ),
               ),
-              child: GestureDetector(
-                onPanEnd: (details){
-                  Future.delayed(const Duration(microseconds: 100),(){
-                    ///setup hours angle when clock hands is drag
-                    _alarmController.setUpHoursAngle();
-                  });
-                },
-              ),
-            ),
+            ) ,
           ),
         ),
       )),

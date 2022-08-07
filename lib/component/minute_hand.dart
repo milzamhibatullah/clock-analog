@@ -14,20 +14,21 @@ class MinuteHand extends StatelessWidget{
         child: Transform.translate(
           offset: const Offset(0, 30),
           child: Center(
-            child: Container(
-              height: Get.height/12,
-              width: 4,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(32),
+            child:GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onPanUpdate: (details){
+                ///setup minutes angle when clock hands is drag
+                _alarmController.setUpMinuteAngle(direction:details.localPosition.direction );
+              },
+              child: Container(
+                height: Get.height/3,
+                width: 10,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(32),
+                ),
               ),
-              child: GestureDetector(
-                onPanUpdate: (details){
-                  ///setup minutes angle when clock hands is drag
-                  _alarmController.setUpMinuteAngle(direction:details.localPosition.direction );
-                },
-              ),
-            ),
+            ) ,
           ),
         ),
       )),

@@ -63,7 +63,7 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
                           child: BarChart(
                             BarChartData(
                               alignment: BarChartAlignment.center,
-                              maxY: _alarmController.seconds.value * 1.5,
+                              maxY: _alarmController.seconds.value +10000,
                               minY: 3600,
 
                               ///bargroups is list of data to display on chart, example below is 1 data
@@ -114,7 +114,7 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 10,
-      child: ct.text(text: text),
+      child: ct.text(text: text,size: 10.0),
     );
   }
 
