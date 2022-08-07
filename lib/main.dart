@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stockbit_clock_test/screen/base_screen.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  tz.initializeTimeZones();
 
   return runApp(
     GetMaterialApp(

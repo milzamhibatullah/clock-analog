@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
   NotificationService();
@@ -11,11 +15,11 @@ class NotificationService {
     try {
       ///settings for android
       const AndroidInitializationSettings androidInitializationSettings =
-          AndroidInitializationSettings('notif_icon');
+      AndroidInitializationSettings('notif_icon');
 
       ///settings for ios
       IOSInitializationSettings iosInitializationSettings =
-          IOSInitializationSettings(
+      IOSInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
@@ -56,31 +60,59 @@ class NotificationService {
   /// creating method for detail of notification that return Notification Detail
   Future<NotificationDetails> _details() async {
     ///details for android
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      'id',
-      'name',
-      channelDescription: 'description',
-      priority: Priority.max,
-      playSound: true,
-    );
+    const int insistentFlag = 4;
+    AndroidNotificationDetails androidNotificationDetails =
+    AndroidNotificationDetails(
+        'id',
+        'name',
+        channelDescription: 'description',
+        priority: Priority.max,
+        playSound: true,
+        importance: Importance.max,
+        ticker: 'ticker',
+        additionalFlags: Int32List.fromList(<int>[insistentFlag]));
 
-    ///details for ios
-    const IOSNotificationDetails iosNotificationDetails =
+        ///details for ios
+        const IOSNotificationDetails iosNotificationDetails =
         IOSNotificationDetails();
 
     ///return the notification details
-    return const NotificationDetails(
+    return  NotificationDetails(
       android: androidNotificationDetails,
       iOS: iosNotificationDetails,
     );
   }
 
-  ///create method to handle show notification for both platform
-  showNotification (
-      {required int id, required String title, required String body})async{
-    final notificationDetails =await _details();
-    await _service.show(id, title, body, notificationDetails);
+  ///create method to scheduled alarm notification
+  setAlarmNotification(
+      {required int id, required String title, required String body}) async {
+    ///initialize DATE TIME now
+    final notificationDetails = await _details();
+    // await _service.show(id, title, body, notificationDetails);
+    await _service.zonedSchedule(
+        0,
+        title,
+        body,
+        _alarmTime(
+            hour: tz.TZDateTime
+                .now(tz.local)
+                .hour,
+            minute: tz.TZDateTime
+                .now(tz.local)
+                .minute + 1),
+        notificationDetails,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime);
   }
 
+  /// set alarm time
+  tz.TZDateTime _alarmTime({required hour, required minute}) {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    final tz.TZDateTime scheduledTime =
+    tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+
+    return scheduledTime;
+  }
 }
