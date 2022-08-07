@@ -22,8 +22,11 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
   void initState() {
     if (data != null) {
       _alarmController.convertPayload(payload: data.toString());
+      
     }
+
     super.initState();
+
   }
 
   BarChartGroupData generateGroupData(int x, int y) {
@@ -117,9 +120,8 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
     ///parsed data payload as x-axis title
     var hours = data.toString().split(':')[0];
     var minute = data.toString().split(':')[1];
-    var meridiem = data.toString().split(':')[2];
 
-    var parsedTitle = '$hours:$minute $meridiem';
+    var parsedTitle = '$hours:$minute';
     Widget text =Text(
       parsedTitle.toString(),
       style: const TextStyle(

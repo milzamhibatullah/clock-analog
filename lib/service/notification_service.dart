@@ -86,7 +86,7 @@ class NotificationService {
 
   ///create method to scheduled alarm notification
   setAlarmNotification(
-      {required int id, required String title, required String body, required String payload}) async {
+      {required int id, required String title, required String body, required String payload,required hours,required minute}) async {
     ///initialize DATE TIME now
     final notificationDetails = await _details();
     // await _service.show(id, title, body, notificationDetails);
@@ -95,8 +95,8 @@ class NotificationService {
         title,
         body,
         _alarmTime(
-            hour: tz.TZDateTime.now(tz.local).hour,
-            minute: tz.TZDateTime.now(tz.local).minute+1),
+            hour: hours,
+            minute: minute),
         notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
@@ -108,10 +108,12 @@ class NotificationService {
   /// set alarm time
   tz.TZDateTime _alarmTime({required hour, required minute}) {
     print(minute);
+    print(hour);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     final tz.TZDateTime scheduledTime =
         tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
-
+    print(now);
+    print(scheduledTime);
     return scheduledTime;
   }
 }

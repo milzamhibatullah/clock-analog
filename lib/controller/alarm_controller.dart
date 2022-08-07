@@ -5,20 +5,21 @@ import 'package:stockbit_clock_test/service/notification_service.dart';
 class AlarmController extends GetxController {
   var graphIsLoading = false.obs;
   var seconds = 0.obs;
+  var hoursAngle = (0.0).obs;
+  var minuteAngle = (0.0).obs;
 
   ///setUpAlarm
-  Future<void> setUpAlarm(
-      {required hours,
-      required minute,
-      required NotificationService service}) async {
-    int convertedHours = _parseHours(hours: hours);
+  Future<void> setUpAlarm({required NotificationService service}) async {
+    int convertedHours = _parseHours(hours: hoursAngle.value * 10 * 12 ~/ 60);
     return await service.setAlarmNotification(
       id: 0,
       title: 'ALARM',
+      hours: hoursAngle.value * 10 * 12 ~/ 60,
+      minute: minuteAngle.value == 0 ? 0 : int.parse(getMinute()),
       body:
-          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:$minute PM',
+          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:${minuteAngle.value == 0 ? '00' : getMinute()}',
       payload:
-          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:$minute:PM',
+          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:${getMinute()}',
     );
   }
 
@@ -88,5 +89,32 @@ class AlarmController extends GetxController {
     }
 
     return parsed;
+  }
+
+  setUpHoursAngle() {
+    hoursAngle.value = hoursAngle.value + 0.5;
+  }
+
+  setUpMinuteAngle({required direction}) {
+    minuteAngle.value = direction;
+  }
+
+  ///conver hours angle to hours string
+  String getHours() {
+    var hours = hoursAngle.value * 10 * 12 / 60;
+    return hours < 10
+        ? '0${hours.toString().split('.')[0]}'
+        : hours.toString().split('.')[0];
+  }
+
+  ///convert minute angle to minutes string
+  String getMinute() {
+    return minuteAngle.value == 0
+        ? '00'
+        : minuteAngle.value < 0
+            ? (60 - (minuteAngle.value * 10).abs()).toString().split('.')[0]
+            : minuteAngle * 10 < 10
+                ? '0${(minuteAngle.value * 10).toString().split('.')[0]}'
+                : (minuteAngle.value * 10).toString().split('.')[0];
   }
 }
