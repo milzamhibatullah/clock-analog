@@ -107,13 +107,9 @@ class NotificationService {
 
   /// set alarm time
   tz.TZDateTime _alarmTime({required hour, required minute}) {
-    print(minute);
-    print(hour);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     final tz.TZDateTime scheduledTime =
         tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
-    print(now);
-    print(scheduledTime);
     return scheduledTime;
   }
 }
