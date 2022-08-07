@@ -12,4 +12,5 @@ class CustomText {
   }
 }
 
+///initalize instance
 var ct = CustomText();

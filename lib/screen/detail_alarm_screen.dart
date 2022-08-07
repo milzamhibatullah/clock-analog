@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stockbit_clock_test/component/custom_text.dart';
 import 'package:stockbit_clock_test/controller/alarm_controller.dart';
 
 /// detail alarm is redirect screen after alarm is tapped
@@ -12,7 +13,7 @@ class DetailAlarmScreen extends StatefulWidget {
 }
 
 class DetailAlarmState extends State<DetailAlarmScreen> {
-  /// gate arguments
+  /// get arguments
   var data = Get.arguments;
 
   ///initialize the controller
@@ -22,11 +23,9 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
   void initState() {
     if (data != null) {
       _alarmController.convertPayload(payload: data.toString());
-      
     }
 
     super.initState();
-
   }
 
   BarChartGroupData generateGroupData(int x, int y) {
@@ -34,7 +33,7 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
       x: x,
       barsSpace: 10,
       barRods: [
-        BarChartRodData(toY: y.toDouble(),color: Colors.amber),
+        BarChartRodData(toY: y.toDouble(), color: Colors.amber),
       ],
     );
   }
@@ -43,58 +42,67 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Charts'),
+        title: ct.text(text: 'Detail'),
         centerTitle: true,
       ),
       body: SizedBox(
         width: Get.width,
         height: Get.height,
         child: Obx(
+          ///validate if alarm still setup display loading indicator
           () => _alarmController.graphIsLoading.value
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : _alarmController.seconds.value!=0?Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: AspectRatio(
-                aspectRatio:3/3,
-                child: BarChart(
-                  BarChartData(
-                    alignment: BarChartAlignment.center,
-                    maxY: _alarmController.seconds.value*1.5,
-                    minY: 3600,
-                    ///bargroups is list of data to display on chart, example below is 1 data
-                    barGroups: [
-                      generateGroupData(0, _alarmController.seconds.value),
-                    ],
-                    titlesData: FlTitlesData(
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          getTitlesWidget: bottomTitles,
+              : _alarmController.seconds.value != 0
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: AspectRatio(
+                          aspectRatio: 3 / 3,
+                          child: BarChart(
+                            BarChartData(
+                              alignment: BarChartAlignment.center,
+                              maxY: _alarmController.seconds.value * 1.5,
+                              minY: 3600,
+
+                              ///bargroups is list of data to display on chart, example below is 1 data
+                              barGroups: [
+                                generateGroupData(
+                                    0, _alarmController.seconds.value),
+                              ],
+
+                              ///settings title display on barchart
+                              titlesData: FlTitlesData(
+                                bottomTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    getTitlesWidget: bottomTitles,
+                                  ),
+                                ),
+                                leftTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    reservedSize: 60.0,
+                                    interval: 3000,
+                                    getTitlesWidget: leftTitles,
+                                  ),
+                                ),
+                                rightTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      leftTitles:AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 60.0,
-                          interval: 3000,
-                          getTitlesWidget: leftTitles,
-                        ),
-                      ),
-                      rightTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
+                    )
+                  : const SizedBox(
+                      height: 0.0,
                     ),
-                  ),
-                ),
-              ),
-            ),
-          ):const SizedBox(height: 0.0,),
         ),
       ),
     );
@@ -102,16 +110,11 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
 
   ///widget for side titles on charts a.k.a Y-Axis
   Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: Color(0xff7589a2),
-      fontWeight: FontWeight.normal,
-      fontSize: 12,
-    );
     String text = value.toString();
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space:10,
-      child: Text(text, style: style),
+      space: 10,
+      child: ct.text(text: text),
     );
   }
 
@@ -122,19 +125,12 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
     var minute = data.toString().split(':')[1];
 
     var parsedTitle = '$hours:$minute';
-    Widget text =Text(
-      parsedTitle.toString(),
-      style: const TextStyle(
-        color: Color(0xff7589a2),
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-      ),
-    );
-
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 4, //margin top
-      child: text,
+      child: ct.text(
+        text: parsedTitle.toString(),
+      ),
     );
   }
 }
