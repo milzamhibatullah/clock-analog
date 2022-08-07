@@ -15,11 +15,11 @@ class NotificationService {
     try {
       ///settings for android
       const AndroidInitializationSettings androidInitializationSettings =
-      AndroidInitializationSettings('notif_icon');
+          AndroidInitializationSettings('notif_icon');
 
       ///settings for ios
       IOSInitializationSettings iosInitializationSettings =
-      IOSInitializationSettings(
+          IOSInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
@@ -52,6 +52,9 @@ class NotificationService {
     try {
       print('notifcation is select');
       print(payload);
+      if(payload!.isNotEmpty){
+        Get.toNamed('/detail',arguments: payload);
+      }
     } catch (e) {
       debugPrint('error on select notification : $e');
     }
@@ -62,22 +65,20 @@ class NotificationService {
     ///details for android
     const int insistentFlag = 4;
     AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails(
-        'id',
-        'name',
-        channelDescription: 'description',
-        priority: Priority.max,
-        playSound: true,
-        importance: Importance.max,
-        ticker: 'ticker',
-        additionalFlags: Int32List.fromList(<int>[insistentFlag]));
+        AndroidNotificationDetails('id', 'name',
+            channelDescription: 'description',
+            priority: Priority.max,
+            playSound: true,
+            importance: Importance.max,
+            ticker: 'ticker',
+            additionalFlags: Int32List.fromList(<int>[insistentFlag]));
 
-        ///details for ios
-        const IOSNotificationDetails iosNotificationDetails =
+    ///details for ios
+    const IOSNotificationDetails iosNotificationDetails =
         IOSNotificationDetails();
 
     ///return the notification details
-    return  NotificationDetails(
+    return NotificationDetails(
       android: androidNotificationDetails,
       iOS: iosNotificationDetails,
     );
@@ -85,7 +86,7 @@ class NotificationService {
 
   ///create method to scheduled alarm notification
   setAlarmNotification(
-      {required int id, required String title, required String body}) async {
+      {required int id, required String title, required String body, required String payload}) async {
     ///initialize DATE TIME now
     final notificationDetails = await _details();
     // await _service.show(id, title, body, notificationDetails);
@@ -94,24 +95,22 @@ class NotificationService {
         title,
         body,
         _alarmTime(
-            hour: tz.TZDateTime
-                .now(tz.local)
-                .hour,
-            minute: tz.TZDateTime
-                .now(tz.local)
-                .minute + 1),
+            hour: tz.TZDateTime.now(tz.local).hour,
+            minute: tz.TZDateTime.now(tz.local).minute+1),
         notificationDetails,
         uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
+            UILocalNotificationDateInterpretation.absoluteTime,
         androidAllowWhileIdle: true,
+        payload: payload,
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime);
   }
 
   /// set alarm time
   tz.TZDateTime _alarmTime({required hour, required minute}) {
+    print(minute);
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     final tz.TZDateTime scheduledTime =
-    tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
+        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
     return scheduledTime;
   }

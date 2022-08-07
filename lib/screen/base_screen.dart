@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stockbit_clock_test/controller/alarm_controller.dart';
 import 'package:stockbit_clock_test/service/notification_service.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 ///base screen to display the clock
 class BaseScreen extends StatefulWidget {
@@ -11,11 +13,13 @@ class BaseScreen extends StatefulWidget {
 }
 
 class BaseScreenState extends State<BaseScreen> {
-  final NotificationService _notificationService=NotificationService();
+  final NotificationService _notificationService = NotificationService();
+  final AlarmController _alarmController = Get.put(AlarmController());
 
   @override
   void initState() {
     super.initState();
+
     ///init the notification service
     _notificationService.init();
   }
@@ -31,12 +35,13 @@ class BaseScreenState extends State<BaseScreen> {
           child: Center(
             child: ElevatedButton(
               onPressed: () async {
-                /// test the local service
-                await _notificationService.setAlarmNotification(
-                    id: 0,
-                    title: 'ALARM',
-                    body:
-                        '${DateTime.now().hour} : ${DateTime.now().minute + 2}');
+                tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+                await _alarmController.setUpAlarm(
+                    hours: now.hour,
+                    minute: now.minute,
+                    service: _notificationService);
+
+                //Get.toNamed('/detail');
               },
               child: const Text('TEST LOCAL NOTIF'),
             ),
