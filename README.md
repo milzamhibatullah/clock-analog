@@ -1,16 +1,47 @@
-# clock_test
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# Clock Test
+this repository is about Analog Clock with alarm in flutter
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Tech Stack
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Client:** Android Studio, Flutter, getx, flutter_local_notification
+
+
+
+## Installation
+Make sure your workstation has installed the Flutter framework(Stable)
+
+for Instalation Flutter Framework visit this [setup flutter framewrk](https://docs.flutter.dev/get-started/install)
+
+Clone the project first
+
+```bash
+  git clone https://github.com/milzamhibatullah/clock-analog.git
+  git fetch
+  git checkout master
+  git pull origin master
+```
+Enter the project directory
+```bash
+  cd clock_test/
+```
+Inside project directory, Clean the project first
+```bash
+  flutter clean
+```
+After clean the project, run this command
+```bash
+  flutter pub get
+```
+
+After that, to run this project, run this command
+```bash
+  flutter run
+```
+
+For buildin APK, run this command
+```bash
+  flutter build apk --release
