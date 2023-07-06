@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.stockbit_clock_test">
    <application
-        android:label="stockbit_clock_test"
+        android:label="Zegen Clock Test"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
