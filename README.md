@@ -21,8 +21,8 @@ Clone the project first
 ```bash
   git clone https://github.com/milzamhibatullah/clock-analog.git
   git fetch
-  git checkout master
-  git pull origin master
+  git checkout zegen
+  git pull upstream zegen
 ```
 Enter the project directory
 ```bash
