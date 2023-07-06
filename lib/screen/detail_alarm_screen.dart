@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stockbit_clock_test/component/custom_text.dart';
-import 'package:stockbit_clock_test/controller/alarm_controller.dart';
+import 'package:clock_test/component/custom_text.dart';
+import 'package:clock_test/controller/alarm_controller.dart';
 
 /// detail alarm is redirect screen after alarm is tapped
 class DetailAlarmScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
                           child: BarChart(
                             BarChartData(
                               alignment: BarChartAlignment.center,
-                              maxY: _alarmController.seconds.value +10000,
+                              maxY: _alarmController.seconds.value + 10000,
                               minY: 3600,
 
                               ///bargroups is list of data to display on chart, example below is 1 data
@@ -114,7 +114,7 @@ class DetailAlarmState extends State<DetailAlarmScreen> {
     return SideTitleWidget(
       axisSide: meta.axisSide,
       space: 10,
-      child: ct.text(text: text,size: 10.0),
+      child: ct.text(text: text, size: 10.0),
     );
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stockbit_clock_test/controller/alarm_controller.dart';
+import 'package:clock_test/controller/alarm_controller.dart';
 
 class HourHand extends StatelessWidget {
   final AlarmController _alarmController = Get.find<AlarmController>();
@@ -15,10 +15,11 @@ class HourHand extends StatelessWidget {
               child: Center(
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onPanEnd: (details) {
+                  onPanUpdate: (details) {
                     Future.delayed(const Duration(microseconds: 100), () {
                       ///setup hours angle when clock hands is drag
-                      _alarmController.setUpHoursAngle();
+                      _alarmController.setUpHoursAngle(
+                          direction: details.localPosition.direction);
                     });
                   },
                   child: Container(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stockbit_clock_test/component/custom_text.dart';
-import 'package:stockbit_clock_test/component/hours_hand.dart';
-import 'package:stockbit_clock_test/component/minute_hand.dart';
-import 'package:stockbit_clock_test/controller/alarm_controller.dart';
-import 'package:stockbit_clock_test/service/notification_service.dart';
+import 'package:clock_test/component/custom_text.dart';
+import 'package:clock_test/component/hours_hand.dart';
+import 'package:clock_test/component/minute_hand.dart';
+import 'package:clock_test/controller/alarm_controller.dart';
+import 'package:clock_test/service/notification_service.dart';
 
 class Clock extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stockbit_clock_test/service/notification_service.dart';
+import 'package:clock_test/service/notification_service.dart';
 
 class AlarmController extends GetxController {
   var graphIsLoading = false.obs;
@@ -10,16 +10,45 @@ class AlarmController extends GetxController {
 
   ///setUpAlarm
   Future<void> setUpAlarm({required NotificationService service}) async {
-    int convertedHours = _parseHours(hours: hoursAngle.value * 10 * 12 ~/ 60);
+    // int convertedHours = _parseHours(hours: hoursAngle.value * 10 * 12 ~/ 60);
+    var hours = hoursAngle.value * 10 * 12 ~/ 60;
+    print(hours);
+    var parsedHours;
+    print('hours : ${hours.toInt()}');
+    switch (hours.toInt()) {
+      case -6:
+        parsedHours = 6;
+        break;
+      case -5:
+        parsedHours = 7;
+        break;
+      case -4:
+        parsedHours = 8;
+        break;
+      case -3:
+        parsedHours = 9;
+        break;
+      case -2:
+        parsedHours = 10;
+        break;
+      case -1:
+        parsedHours = 11;
+        break;
+      case -0:
+        parsedHours = 12;
+        break;
+      default:
+        parsedHours = hours;
+    }
     return await service.setAlarmNotification(
       id: 0,
       title: 'ALARM',
-      hours: hoursAngle.value * 10 * 12 ~/ 60,
+      hours: parsedHours,
       minute: minuteAngle.value == 0 ? 0 : int.parse(getMinute()),
       body:
-          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:${minuteAngle.value == 0 ? '00' : getMinute()}',
+          '${parsedHours < 10 ? '0$parsedHours' : parsedHours}:${minuteAngle.value == 0 ? '00' : getMinute()}',
       payload:
-          '${convertedHours < 10 ? '0$convertedHours' : convertedHours}:${getMinute()}',
+          '${parsedHours < 10 ? '0$parsedHours' : parsedHours}:${getMinute()}',
     );
   }
 
@@ -91,8 +120,10 @@ class AlarmController extends GetxController {
     return parsed;
   }
 
-  setUpHoursAngle() {
-    hoursAngle.value = hoursAngle.value + 0.5;
+  setUpHoursAngle({required double direction}) {
+    // print('direction $direction');
+
+    hoursAngle.value = direction;
   }
 
   setUpMinuteAngle({required direction}) {
@@ -102,9 +133,36 @@ class AlarmController extends GetxController {
   ///conver hours angle to hours string
   String getHours() {
     var hours = hoursAngle.value * 10 * 12 / 60;
-    return hours < 10
-        ? '0${hours.toString().split('.')[0]}'
-        : hours.toString().split('.')[0];
+    var parsedHours;
+    print('hours : ${hours.toInt()}');
+    switch (hours.toInt()) {
+      case -6:
+        parsedHours = 6;
+        break;
+      case -5:
+        parsedHours = 7;
+        break;
+      case -4:
+        parsedHours = 8;
+        break;
+      case -3:
+        parsedHours = 9;
+        break;
+      case -2:
+        parsedHours = 10;
+        break;
+      case -1:
+        parsedHours = 11;
+        break;
+      case -0:
+        parsedHours = 12;
+        break;
+      default:
+        parsedHours = hours;
+    }
+    return parsedHours < 10
+        ? '0${parsedHours.toString().split('.')[0]}'
+        : parsedHours.toString().split('.')[0];
   }
 
   ///convert minute angle to minutes string

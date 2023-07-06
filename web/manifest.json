@@ -1,6 +1,6 @@
 {
-    "name": "stockbit_clock_test",
-    "short_name": "stockbit_clock_test",
+    "name": "clock_test",
+    "short_name": "clock_test",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

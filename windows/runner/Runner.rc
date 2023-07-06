@@ -94,7 +94,7 @@ BEGIN
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Zegen Clock Test" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "stockbit_clock_test.exe" "\0"
+            VALUE "OriginalFilename", "clock_test.exe" "\0"
             VALUE "ProductName", "Zegen Clock Test" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

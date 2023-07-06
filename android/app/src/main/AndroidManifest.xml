@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.stockbit_clock_test">
+    package="com.example.clock_test">
    <application
         android:label="Zegen Clock Test"
         android:name="${applicationName}"

@@ -1,4 +1,4 @@
-package com.example.stockbit_clock_test
+package com.example.clock_test
 
 import io.flutter.embedding.android.FlutterActivity
 
